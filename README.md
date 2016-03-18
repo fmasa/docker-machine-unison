@@ -10,8 +10,6 @@ Clone this repository:
 
     git clone git@github.com:fmasa/docker-machine-unison.git
 
-Add bin subdirectory to your PATH (Unison is there).
-
 Run `./provision.sh` from root directory and voila.
 First sync can take several seconds (minutes for huge shared folder), but then thigs are almost instant.
 Note that this script must be running all the time to sync files (it's watching changes in your shared folder).

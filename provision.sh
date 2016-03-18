@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+INSTALLATION_FOLDER=$(pwd)
+
 loadConfig() {
     eval $(sed -e 's/:[^:\/\/]/="/g;s/$/"/g;s/ *=/=/g' config.conf)
 }
@@ -94,7 +96,7 @@ sshargs = -F $ssh_config_file
 }
 
 startUnison () {
-    unison $UNISON_PROFILE_NAME
+    "$INSTALLATION_FOLDER/bin/unison" $UNISON_PROFILE_NAME
 }
 
 loadConfig
