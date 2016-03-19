@@ -18,7 +18,7 @@ removeVirtualboxSharedFolders () {
     echo "($1) Checking whether /c/Users (vboxsf) is mounted ...";
     if [[ $(executeCommand $1 mount | grep c/Users) ]]; then
         echo "($1) Removing /c/Users"
-        executeCommand $1 "sudo umount /c/Users"
+        executeCommand $1 "sudo umount //c/Users"
     fi
 }
 
@@ -40,7 +40,7 @@ checkAndInstallUnison () {
         echo "($1) unison 2.48.3 found."
     else
         echo "($1) Installing unison ..."
-        executeCommand $1 "cd / &&
+        executeCommand $1 "cd // &&
             sudo curl -sL https://www.archlinux.org/packages/extra/x86_64/unison/download | sudo tar Jx;"
     fi
 }
@@ -60,7 +60,7 @@ setUpUnison() {
 
     ssh_config_file="$(pwd)/.docker-unison/ssh-config"
 
-    [ -f $ssh_config_file ] || "$ssh_config" > $ssh_config_file
+    [ -f $ssh_config_file ] || echo "$ssh_config" > $ssh_config_file
 
 
     if [ -z ${USERPROFILE+x} ]; then
