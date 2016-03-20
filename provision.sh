@@ -76,6 +76,11 @@ setUpUnison() {
 
         echo "Creating unison profile ..."
 
+        if [ -z ${UNISON_FASTCHECK+x} ]; then
+            UNISON_FASTCHECK='false' # Fastcheck is disabled by default
+        fi
+
+
 profile="
 root = $HOST_FOLDER
 root = ssh://$DOCKER_MACHINE_IP/$GUEST_FOLDER
@@ -87,6 +92,7 @@ repeat = 2
 terse = true
 dontchmod = true
 perms = 0
+fastcheck = $UNISON_FASTCHECK
 sshargs = -F $ssh_config_file
 "
         echo "$profile" > ".unison/$UNISON_PROFILE_NAME.prf"
