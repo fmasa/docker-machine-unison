@@ -17,12 +17,12 @@ Note that this script must be running all the time to sync files (it's watching 
 ## Configuration
 There is `config.conf` in root, where you can fiddle with several options:
 
-- DOCKER_MACHINE – name of the Docker Machine you want to sync your files with
-- UNISON_PROFILE_NAME – name of the profile used by unison
-- HOST_FOLDER – Folder in Windows to share with the VM
-- GUEST_FOLDER – Folder in Docker machine to share with Windows host
-- IGNORE – Folders and files to exclude from syncing
-- FASTCHECK – check changes based on modification time rather than file content
+- **DOCKER_MACHINE** – name of the Docker Machine you want to sync your files with
+- **UNISON_PROFILE_NAME** – name of the profile used by unison
+- **HOST_FOLDER** – Folder in Windows to share with the VM
+- **GUEST_FOLDER** – Folder in Docker machine to share with Windows host
+- **IGNORE** – Folders and files to exclude from syncing
+- **FASTCHECK** *(optional)* – check changes based on modification time rather than file content
 
 *Note #1: HOST_FOLDER and GUEST_FOLDER should match (i.e. C:/dev --> /c/dev)*
 
