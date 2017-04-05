@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
+set -x -e;
+
+DOCKER_MACHINE=${DOCKER_MACHINE_NAME:-default}
 INSTALLATION_FOLDER=$(pwd)
 
 loadConfig() {
+    CONGFIGS="$(sed -e 's/:[^:\/\/]/="/g;s/$/"/g;s/ *=/=/g' config.conf)"
     eval $(sed -e 's/:[^:\/\/]/="/g;s/$/"/g;s/ *=/=/g' config.conf)
 }
 
 selectDockerMachine() {
-    DOCKER_MACHINE_IP="$(docker-machine ip $DOCKER_MACHINE)"
+    export DOCKER_MACHINE_IP="$(docker-machine ip $DOCKER_MACHINE)"
 }
 
 executeCommand() {
@@ -51,10 +55,10 @@ setUpUnison() {
 
     # create ssh-config file
     ssh_config="
-    Host $DOCKER_MACHINE_IP
-        User docker
-        IdentityFile ~/.docker/machine/machines/$DOCKER_MACHINE/id_rsa
-    "
+Host $DOCKER_MACHINE_IP
+    User docker
+    IdentityFile ~/.docker/machine/machines/$DOCKER_MACHINE/id_rsa
+"
 
     [ -d .docker-unison ] || mkdir .docker-unison
 
@@ -81,7 +85,7 @@ setUpUnison() {
         fi
 
 
-profile="
+        profile="
 root = $HOST_FOLDER
 root = ssh://$DOCKER_MACHINE_IP/$GUEST_FOLDER
 ignore = Name $IGNORE
@@ -101,14 +105,17 @@ sshargs = -F $ssh_config_file
     echo "Done!"
 }
 
+
 startUnison () {
     "$INSTALLATION_FOLDER/bin/unison" $UNISON_PROFILE_NAME
 }
 
 loadConfig
 selectDockerMachine
+
+
 removeVirtualboxSharedFolders $DOCKER_MACHINE
 createDirectory $DOCKER_MACHINE $GUEST_FOLDER
 checkAndInstallUnison $DOCKER_MACHINE
 setUpUnison
-startUnison
+"$INSTALLATION_FOLDER/bin/unison" $UNISON_PROFILE_NAME
