@@ -105,11 +105,6 @@ sshargs = -F $ssh_config_file
     echo "Done!"
 }
 
-
-startUnison () {
-    "$INSTALLATION_FOLDER/bin/unison" $UNISON_PROFILE_NAME
-}
-
 loadConfig
 selectDockerMachine
 
